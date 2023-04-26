@@ -1,6 +1,10 @@
 package com.carlosgonzalezruiz.aliensupremacyserver.game.server;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -65,13 +69,16 @@ public class ThreadServer extends AbstractThread {
 				Socket client = server.accept();
 				client.setSoTimeout(5000); // Establecer timeout
 
-				// Limpiar lista de clientes.
-				cleanClients();
-				
-				// Instanciar hilo.
-				ThreadClient threadClient = new ThreadClient(this, client);
-				threadClient.start();
-				clients.add(threadClient);
+				// Comprobar tipo de cliente.
+				if (isWsClient(client)) {
+					// Limpiar lista de clientes.
+					cleanClients();
+					
+					// Instanciar hilo.
+					ThreadClient threadClient = new ThreadClient(this, client);
+					threadClient.start();
+					clients.add(threadClient);
+				}
 			}
 
 			server.close();
@@ -125,6 +132,68 @@ public class ThreadServer extends AbstractThread {
 	 */
 	public void stopServer() {
 		running = false;
+	}
+	
+	/**
+	 * Método que comprueba mediante el socket del cliente si cierto cliente ha intentado conectarse a este servidor mediante Websocket o no.
+	 * 
+	 * @param client el socket del cliente.
+	 * @return si la conexión se ha hecho mediante WebSocket,
+	 * @throws IOException 
+	 */
+	public boolean isWsClient(Socket client) throws IOException {
+		boolean isWebsocket = false;
+		
+		BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+        BufferedWriter out = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
+        
+        // Comprobar cliente.
+        String s;
+        while ((s = in.readLine()) != null) {
+        	if (s.contains("Sec-WebSocket")) {
+        		isWebsocket = true;
+        	}
+            
+            if (s.isEmpty()) {
+                break;
+            }
+        }
+        
+        if (isWebsocket) {
+        	log.info("Conexion is WebSocket, not sending dummy HTTP response.");
+        } else {
+	        // Enviar mensaje tonto al cliente HTTP.
+	        log.info("Detected HTTP client, sending dummy HTTP response.");
+
+	        String message = """
+	        		<html>
+	        			<head>
+	        				<title>Dummy title</title>
+	        			</head>
+	        			<body>
+	        				<p>Dummy content</p>
+	        			</body>
+	        		</html>
+	        """;
+	        out.write("HTTP/1.0 200 OK\r\n");
+	        out.write("Date: Fri, 31 Dec 1999 23:59:59 GMT\r\n");
+	        out.write("Server: Apache/0.8.4\r\n");
+	        out.write("Content-Type: text/html\r\n");
+	        out.write("Content-Length: " + message.length() + "\r\n");
+	        out.write("Expires: Sat, 01 Jan 2000 00:59:59 GMT\r\n");
+	        out.write("Last-modified: Fri, 09 Aug 1996 14:21:40 GMT\r\n");
+	        out.write("\r\n");
+	        out.write(message);
+	        
+	        log.info("Sent response");
+        }
+
+        // Terminar conexión.
+        out.close();
+        in.close();
+        client.close();
+		
+		return isWebsocket;
 	}
 
 	/**

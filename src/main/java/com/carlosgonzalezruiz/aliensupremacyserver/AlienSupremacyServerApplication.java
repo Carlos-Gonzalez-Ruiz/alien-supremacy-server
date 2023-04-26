@@ -1,5 +1,7 @@
 package com.carlosgonzalezruiz.aliensupremacyserver;
 
+import java.io.IOException;
+
 import com.carlosgonzalezruiz.aliensupremacyserver.game.server.ThreadServer;
 
 /**
@@ -18,8 +20,9 @@ public class AlienSupremacyServerApplication {
 	 * Método principal de la clase.
 	 * 
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		log.info("Application started...");
 		
 		// Iniciar servidor.
