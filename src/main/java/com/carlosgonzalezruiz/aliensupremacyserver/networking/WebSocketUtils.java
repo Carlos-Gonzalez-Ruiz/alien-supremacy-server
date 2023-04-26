@@ -67,7 +67,7 @@ public class WebSocketUtils {
 		Scanner s = new Scanner(in, StandardCharsets.UTF_8);
 
 		// Obtener texto de la petición. (hasta que se encuentre 2 retornos de carro)
-		String data = s.useDelimiter("\\r\\n\\r\\n").next();
+		String data = s.useDelimiter("\r\n\r\n").next();
 
 		// Comprobar si encuentra la propiedad GET en la petición.
 		Matcher get = Pattern.compile("^GET").matcher(data);
