@@ -151,13 +151,15 @@ public class ThreadServer extends AbstractThread {
 		BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
         
+        log.info("Checking request...");
+        
         // Comprobar cliente.
         String s;
         while ((s = in.readLine()) != null) {
         	if (s.contains("Sec-WebSocket")) {
         		isWebsocket = true;
         	}
-            
+            System.out.println(s);
             if (s.isEmpty()) {
                 break;
             }
