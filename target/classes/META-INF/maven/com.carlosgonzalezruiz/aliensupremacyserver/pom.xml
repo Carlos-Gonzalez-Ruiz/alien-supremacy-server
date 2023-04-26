@@ -6,7 +6,6 @@
 	<version>0.1-Alpha</version>
 	<name>Alien Supremacy Game Server</name>
 	<description>Websocket server to host an Alien Supremacy Game Server Instance.</description>
-
 	<packaging>jar</packaging>
 
 	<properties>
@@ -52,6 +51,26 @@
 		    <version>${jackson.version}</version>
 		</dependency>
 		
-		
 	</dependencies>
+	
+	<!-- Maven plugins -->
+	<build>
+	  <plugins>
+	    <plugin>
+	      <!-- Build an executable JAR -->
+	      <groupId>org.apache.maven.plugins</groupId>
+	      <artifactId>maven-jar-plugin</artifactId>
+	      <version>3.1.0</version>
+	      <configuration>
+	        <archive>
+	          <manifest>
+	            <mainClass>com.carlosgonzalezruiz.aliensupremacyserver.AlienSupremacyServerApplication</mainClass>
+	          </manifest>
+	        </archive>
+	      </configuration>
+	    </plugin>
+	    
+	  </plugins>
+	</build>
+
 </project>
