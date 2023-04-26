@@ -34,7 +34,7 @@ import com.carlosgonzalezruiz.aliensupremacyserver.game.client.ThreadClient;
 public class WebSocketUtils {
 	
 	/** Logger */
-	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(ThreadClient.class);
+	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(WebSocketUtils.class);
 	
 	/**
 	 * Método constructor de la clase.
@@ -73,12 +73,12 @@ public class WebSocketUtils {
 		Matcher get = Pattern.compile("^GET").matcher(data);
 		if (get.find()) {
 			// Obtener el valor de clave mediante regex.
-			Matcher match = Pattern.compile("Sec-WebSocket-Key: (.*)").matcher(data);
+			Matcher match = Pattern.compile("Sec-Websocket-Key: (.*)").matcher(data);
 			match.find();
 
 			// Crear petición.
 			byte[] response = ("HTTP/1.1 101 Switching Protocols\r\n" + "Connection: Upgrade\r\n"
-					+ "Upgrade: websocket\r\n" + "Sec-WebSocket-Accept: "
+					+ "Upgrade: websocket\r\n" + "Sec-Websocket-Accept: "
 					+ Base64.getEncoder()
 							.encodeToString(MessageDigest.getInstance("SHA-1")
 									.digest((match.group(1) + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11")
