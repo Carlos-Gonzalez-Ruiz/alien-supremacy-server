@@ -1,0 +1,13 @@
+/home/carlos/eclipse-workspace/alien-supremacy-server/src/main/java/com/carlosgonzalezruiz/aliensupremacyserver/networking/WebSocketUtils.java
+/home/carlos/eclipse-workspace/alien-supremacy-server/src/main/java/com/carlosgonzalezruiz/aliensupremacyserver/constant/UrlConstants.java
+/home/carlos/eclipse-workspace/alien-supremacy-server/src/main/java/com/carlosgonzalezruiz/aliensupremacyserver/networking/bean/ChatMessageData.java
+/home/carlos/eclipse-workspace/alien-supremacy-server/src/main/java/com/carlosgonzalezruiz/aliensupremacyserver/AlienSupremacyServerApplication.java
+/home/carlos/eclipse-workspace/alien-supremacy-server/src/main/java/com/carlosgonzalezruiz/aliensupremacyserver/game/AbstractThread.java
+/home/carlos/eclipse-workspace/alien-supremacy-server/src/main/java/com/carlosgonzalezruiz/aliensupremacyserver/networking/WebSocketMessage.java
+/home/carlos/eclipse-workspace/alien-supremacy-server/src/main/java/com/carlosgonzalezruiz/aliensupremacyserver/networking/bean/RoomData.java
+/home/carlos/eclipse-workspace/alien-supremacy-server/src/main/java/com/carlosgonzalezruiz/aliensupremacyserver/game/server/ThreadServer.java
+/home/carlos/eclipse-workspace/alien-supremacy-server/src/main/java/com/carlosgonzalezruiz/aliensupremacyserver/constant/WebSocketMessageConstants.java
+/home/carlos/eclipse-workspace/alien-supremacy-server/src/main/java/com/carlosgonzalezruiz/aliensupremacyserver/game/server/ThreadServerListener.java
+/home/carlos/eclipse-workspace/alien-supremacy-server/src/main/java/com/carlosgonzalezruiz/aliensupremacyserver/constant/GameConstants.java
+/home/carlos/eclipse-workspace/alien-supremacy-server/src/main/java/com/carlosgonzalezruiz/aliensupremacyserver/game/client/ThreadClient.java
+/home/carlos/eclipse-workspace/alien-supremacy-server/src/main/java/com/carlosgonzalezruiz/aliensupremacyserver/networking/bean/PlayerData.java
