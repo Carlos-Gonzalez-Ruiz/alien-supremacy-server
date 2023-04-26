@@ -40,6 +40,9 @@ public class ThreadServer extends AbstractThread {
 
 	/** Indicar si el servidor está operativo. */
 	private boolean running;
+	
+	/** Datos de la petición HTTP/WebSocket último cliente que se ha conectado. */
+	private String currentHttpData;
 
 	/**
 	 * Método constructor de la clase.
@@ -76,7 +79,7 @@ public class ThreadServer extends AbstractThread {
 						cleanClients();
 						
 						// Instanciar hilo.
-						ThreadClient threadClient = new ThreadClient(this, client);
+						ThreadClient threadClient = new ThreadClient(this, client, currentHttpData);
 						threadClient.start();
 						clients.add(threadClient);
 					} else {
@@ -159,23 +162,24 @@ public class ThreadServer extends AbstractThread {
         while ((s = in.readLine()) != null) {
         	if (s.toLowerCase().contains("sec-websocket")) {
         		isWebsocket = true;
-        		log.info("---Conexion is WebSocket----");
         	}
         	
         	if (request.equals("") && !s.equals("")) {
-        		log.info("Checking request...");
+        		
         	}
         	
-            System.out.println(s);
-            
             if (s.isEmpty()) {
                 break;
             } else {
-            	request += s;
+            	request += s + "\r\n";
             }
         }
         
         if (!request.equals("")) {
+        	log.info("Checking request...");
+        	
+        	System.out.println(request);
+        	
 	        if (isWebsocket) {
 	        	log.info("Conexion is WebSocket, not sending dummy HTTP response.");
 	        } else {
@@ -205,6 +209,8 @@ public class ThreadServer extends AbstractThread {
 		        log.info("Sent response");
 	        }
         }
+        
+        currentHttpData = request;
 		
 		return isWebsocket;
 	}
