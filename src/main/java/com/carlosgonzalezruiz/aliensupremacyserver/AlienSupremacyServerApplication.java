@@ -1,29 +1,13 @@
 package com.carlosgonzalezruiz.aliensupremacyserver;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.security.KeyFactory;
 import java.security.KeyManagementException;
-import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
-import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
-import java.security.cert.X509Certificate;
-import java.security.interfaces.RSAPrivateKey;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.PKCS8EncodedKeySpec;
-import javax.xml.bind.DatatypeConverter;
 
-import javax.net.ssl.KeyManager;
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLContext;
-
-import org.java_websocket.server.DefaultSSLWebSocketServerFactory;
+import com.carlosgonzalezruiz.aliensupremacyserver.game.server.ThreadServer;
 
 /**
  * Alien Supremacy - Proyecto Fin de Ciclo
@@ -48,10 +32,10 @@ public class AlienSupremacyServerApplication {
 	 * @throws UnrecoverableKeyException 
 	 * @throws KeyManagementException 
 	 */
-	//public static void main(String[] args) throws IOException, KeyStoreException, NoSuchAlgorithmException, CertificateException, UnrecoverableKeyException, KeyManagementException {
+	public static void main(String[] args) throws IOException, KeyStoreException, NoSuchAlgorithmException, CertificateException, UnrecoverableKeyException, KeyManagementException {
 		//log.info("Application started...");
 		
-		/*// Iniciar servidor.
+		// Iniciar servidor.
 		ThreadServer threadServer = new ThreadServer();
 		threadServer.start();
 
@@ -61,10 +45,10 @@ public class AlienSupremacyServerApplication {
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 			log.error("Failed to join the thread: {}", e.getMessage());
-		}*/
-	//}
+		}
+	}
 	
-	public static void main(String[] args) throws Exception {
+	/*public static void main(String[] args) throws Exception {
 	    ChatServer chatserver = new ChatServer(8887);
 
 	    SSLContext context = getContext();
@@ -78,8 +62,8 @@ public class AlienSupremacyServerApplication {
 
 	  private static SSLContext getContext() {
 	    SSLContext context;
-	    String password = "CHANGEIT";
-	    String pathname = "pem";
+	    String password = "";
+	    String pathname = "classpath:/";
 	    try {
 	      context = SSLContext.getInstance("TLS");
 
@@ -144,6 +128,6 @@ public class AlienSupremacyServerApplication {
 	      e.printStackTrace();
 	    }
 	    return bytesArray;
-	  }
+	  }*/
 
 }
