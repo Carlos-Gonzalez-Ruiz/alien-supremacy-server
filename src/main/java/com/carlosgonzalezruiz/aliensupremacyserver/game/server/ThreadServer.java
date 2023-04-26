@@ -69,15 +69,19 @@ public class ThreadServer extends AbstractThread {
 				Socket client = server.accept();
 				client.setSoTimeout(5000); // Establecer timeout
 
-				// Comprobar tipo de cliente.
-				if (isWsClient(client)) {
-					// Limpiar lista de clientes.
-					cleanClients();
-					
-					// Instanciar hilo.
-					ThreadClient threadClient = new ThreadClient(this, client);
-					threadClient.start();
-					clients.add(threadClient);
+				try {
+					// Comprobar tipo de cliente.
+					if (isWsClient(client)) {
+						// Limpiar lista de clientes.
+						cleanClients();
+						
+						// Instanciar hilo.
+						ThreadClient threadClient = new ThreadClient(this, client);
+						threadClient.start();
+						clients.add(threadClient);
+					}
+				} catch (IOException e) {
+					log.error("Client connection error: {}", e.getMessage());
 				}
 			}
 
