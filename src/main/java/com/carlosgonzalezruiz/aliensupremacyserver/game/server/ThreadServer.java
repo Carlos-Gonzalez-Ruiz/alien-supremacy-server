@@ -157,8 +157,9 @@ public class ThreadServer extends AbstractThread {
         String s;
         String request = "";
         while ((s = in.readLine()) != null) {
-        	if (s.contains("Sec-WebSocket")) {
+        	if (s.toLowerCase().contains("sec-websocket")) {
         		isWebsocket = true;
+        		log.info("---Conexion is WebSocket----");
         	}
         	
         	if (request.equals("") && !s.equals("")) {
@@ -174,33 +175,35 @@ public class ThreadServer extends AbstractThread {
             }
         }
         
-        if (isWebsocket) {
-        	log.info("Conexion is WebSocket, not sending dummy HTTP response.");
-        } else {
-	        // Enviar mensaje tonto al cliente HTTP.
-	        log.info("Detected HTTP client, sending dummy HTTP response.");
-
-	        String message = """
-	        		<html>
-	        			<head>
-	        				<title>Dummy title</title>
-	        			</head>
-	        			<body>
-	        				<p>Dummy content</p>
-	        			</body>
-	        		</html>
-	        """;
-	        out.write("HTTP/1.0 200 OK\r\n");
-	        out.write("Date: Fri, 31 Dec 1999 23:59:59 GMT\r\n");
-	        out.write("Server: Apache/0.8.4\r\n");
-	        out.write("Content-Type: text/html\r\n");
-	        out.write("Content-Length: " + message.length() + "\r\n");
-	        out.write("Expires: Sat, 01 Jan 2000 00:59:59 GMT\r\n");
-	        out.write("Last-modified: Fri, 09 Aug 1996 14:21:40 GMT\r\n");
-	        out.write("\r\n");
-	        out.write(message);
-	        
-	        log.info("Sent response");
+        if (!request.equals("")) {
+	        if (isWebsocket) {
+	        	log.info("Conexion is WebSocket, not sending dummy HTTP response.");
+	        } else {
+		        // Enviar mensaje tonto al cliente HTTP.
+		        log.info("Detected HTTP client, sending dummy HTTP response.");
+	
+		        String message = """
+		        		<html>
+		        			<head>
+		        				<title>Dummy title</title>
+		        			</head>
+		        			<body>
+		        				<p>Dummy content</p>
+		        			</body>
+		        		</html>
+		        """;
+		        out.write("HTTP/1.0 200 OK\r\n");
+		        out.write("Date: Fri, 31 Dec 1999 23:59:59 GMT\r\n");
+		        out.write("Server: Apache/0.8.4\r\n");
+		        out.write("Content-Type: text/html\r\n");
+		        out.write("Content-Length: " + message.length() + "\r\n");
+		        out.write("Expires: Sat, 01 Jan 2000 00:59:59 GMT\r\n");
+		        out.write("Last-modified: Fri, 09 Aug 1996 14:21:40 GMT\r\n");
+		        out.write("\r\n");
+		        out.write(message);
+		        
+		        log.info("Sent response");
+	        }
         }
 		
 		return isWebsocket;
