@@ -79,6 +79,8 @@ public class ThreadServer extends AbstractThread {
 						ThreadClient threadClient = new ThreadClient(this, client);
 						threadClient.start();
 						clients.add(threadClient);
+					} else {
+						client.close();
 					}
 				} catch (IOException e) {
 					log.error("Client connection error: {}", e.getMessage());
@@ -151,17 +153,24 @@ public class ThreadServer extends AbstractThread {
 		BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
         
-        log.info("Checking request...");
-        
         // Comprobar cliente.
         String s;
+        String request = "";
         while ((s = in.readLine()) != null) {
         	if (s.contains("Sec-WebSocket")) {
         		isWebsocket = true;
         	}
+        	
+        	if (request.equals("") && !s.equals("")) {
+        		log.info("Checking request...");
+        	}
+        	
             System.out.println(s);
+            
             if (s.isEmpty()) {
                 break;
+            } else {
+            	request += s;
             }
         }
         
@@ -193,11 +202,6 @@ public class ThreadServer extends AbstractThread {
 	        
 	        log.info("Sent response");
         }
-
-        // Terminar conexión.
-        out.close();
-        in.close();
-        client.close();
 		
 		return isWebsocket;
 	}
