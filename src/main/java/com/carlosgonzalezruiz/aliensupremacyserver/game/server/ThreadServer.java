@@ -54,7 +54,7 @@ public class ThreadServer extends AbstractThread {
 		this.rooms = new ArrayList<>();
 		this.running = true;
 	}
-
+	
 	/**
 	 * Método run del hilo servidor, en el que aceptará peticiones hasta que running
 	 * = false. Creará el servidor bajo el puerto especificado en

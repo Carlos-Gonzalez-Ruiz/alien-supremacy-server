@@ -33,7 +33,7 @@ public class AlienSupremacyServerApplication {
 	 * @throws KeyManagementException 
 	 */
 	public static void main(String[] args) throws IOException, KeyStoreException, NoSuchAlgorithmException, CertificateException, UnrecoverableKeyException, KeyManagementException {
-		//log.info("Application started...");
+		log.info("Application started...");
 		
 		// Iniciar servidor.
 		ThreadServer threadServer = new ThreadServer();
