@@ -13,7 +13,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.carlosgonzalezruiz.aliensupremacyserver.constant.GameConstants;
-import com.carlosgonzalezruiz.aliensupremacyserver.game.client.ThreadClient;
 
 /**
  * Alien Supremacy - Proyecto Fin de Ciclo
@@ -34,7 +33,7 @@ import com.carlosgonzalezruiz.aliensupremacyserver.game.client.ThreadClient;
 public class WebSocketUtils {
 	
 	/** Logger */
-	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(WebSocketUtils.class);
+	//private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(WebSocketUtils.class);
 	
 	/**
 	 * Método constructor de la clase.

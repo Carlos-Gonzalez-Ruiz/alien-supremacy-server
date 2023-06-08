@@ -4,12 +4,12 @@ package com.carlosgonzalezruiz.aliensupremacyserver.constant;
  * Alien Supremacy - Proyecto Fin de Ciclo
  * 
  * Clase estática que define constantes globales para lo relativo a la lógica
- * del comunicaciones de red mediante WebSocket.
+ * de las comunicaciones de red mediante WebSocket.
  * 
  * @author Carlos González Ruiz - 2ºDAM
  */
 public final class WebSocketMessageConstants {
-
+	
 	/* Cliente → Servidor */
 	
 	/** Código de mensaje de nuevo jugador en el listado de salas. (Cliente → Servidor)

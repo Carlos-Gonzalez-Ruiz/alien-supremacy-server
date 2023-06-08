@@ -35,7 +35,7 @@ public class ThreadServerListener extends AbstractThread {
 	}
 
 	/**
-	 * Método run del hilo, en dónde se comprobará que el cliente
+	 * Método run del hilo, en dónde se comprobará si el cliente se ha desconectado.
 	 */
 	@Override
 	public void run() {
