@@ -13,7 +13,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.carlosgonzalezruiz.aliensupremacyserver.constant.GameConstants;
-import com.carlosgonzalezruiz.aliensupremacyserver.game.client.ThreadClient;
 
 /**
  * Alien Supremacy - Proyecto Fin de Ciclo
@@ -34,7 +33,7 @@ import com.carlosgonzalezruiz.aliensupremacyserver.game.client.ThreadClient;
 public class WebSocketUtils {
 	
 	/** Logger */
-	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(ThreadClient.class);
+	//private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(WebSocketUtils.class);
 	
 	/**
 	 * Método constructor de la clase.
@@ -56,29 +55,30 @@ public class WebSocketUtils {
 	 * Adicionalmente, este método devolverá un objeto Scanner abierto, del cual
 	 * programador deberá cerrar tras finalizar la conexión con el cliente.
 	 * 
+	 * @param data
 	 * @param in
 	 * @param out
 	 * @return Scanner
 	 * @throws IOException
 	 * @throws NoSuchAlgorithmException
 	 */
-	public static synchronized Scanner sendHandshake(InputStream in, OutputStream out)
+	public static synchronized Scanner sendHandshake(String data, InputStream in, OutputStream out)
 			throws IOException, NoSuchAlgorithmException {
 		Scanner s = new Scanner(in, StandardCharsets.UTF_8);
 
 		// Obtener texto de la petición. (hasta que se encuentre 2 retornos de carro)
-		String data = s.useDelimiter("\\r\\n\\r\\n").next();
+		//String data = s.useDelimiter("\\r\\n\\r\\n").next();
 
 		// Comprobar si encuentra la propiedad GET en la petición.
 		Matcher get = Pattern.compile("^GET").matcher(data);
 		if (get.find()) {
 			// Obtener el valor de clave mediante regex.
-			Matcher match = Pattern.compile("Sec-WebSocket-Key: (.*)").matcher(data);
+			Matcher match = Pattern.compile("Sec-WebSocket-Key: (.*)|Sec-Websocket-Key: (.*)").matcher(data);
 			match.find();
 
 			// Crear petición.
 			byte[] response = ("HTTP/1.1 101 Switching Protocols\r\n" + "Connection: Upgrade\r\n"
-					+ "Upgrade: websocket\r\n" + "Sec-WebSocket-Accept: "
+					+ "Upgrade: websocket\r\n" + "Sec-Websocket-Accept: "
 					+ Base64.getEncoder()
 							.encodeToString(MessageDigest.getInstance("SHA-1")
 									.digest((match.group(1) + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11")

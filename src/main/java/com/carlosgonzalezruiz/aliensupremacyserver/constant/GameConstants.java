@@ -11,7 +11,7 @@ package com.carlosgonzalezruiz.aliensupremacyserver.constant;
 public final class GameConstants {
 
 	/** Puerto del que se instanciará el servidor de juego. */
-	public static final int SERVER_PORT = 8080/*42000*/;
+	public static final int SERVER_PORT = 10000;
 	/** Tiempo en milisegundos que esperan los hilos cliente. */
 	public static final int SERVER_TICK_RATE = 16*0+100;
 

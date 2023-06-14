@@ -1,0 +1,7 @@
+application:
+  title: "Alien Supremacy Server"
+  version: 0.1
+  formatted-version: v0.1 Alpha
+  
+server:
+  port: 8090

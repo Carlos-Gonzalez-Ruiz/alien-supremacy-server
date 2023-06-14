@@ -54,6 +54,9 @@ public class ThreadClient extends AbstractThread {
 	/* Datos del cliente. */
 	/** Datos de usuario del cliente. */
 	private PlayerData playerData;
+	
+	/** Datos de la request HTTP/ WebSocket */
+	private String httpData;
 
 	/**
 	 * Método constructor de la clase.
@@ -62,13 +65,14 @@ public class ThreadClient extends AbstractThread {
 	 * @param client
 	 * @throws IOException
 	 */
-	public ThreadClient(ThreadServer server, Socket client) throws IOException {
+	public ThreadClient(ThreadServer server, Socket client, String httpData) throws IOException {
 		super();
 
 		this.server = server;
 		this.client = client;
 		this.in = client.getInputStream();
 		this.out = client.getOutputStream();
+		this.httpData = httpData;
 
 		this.connected = true;
 		this.firstPing = false;
@@ -83,7 +87,7 @@ public class ThreadClient extends AbstractThread {
 		Scanner s = null;
 		try {
 			// Realizar handshake.
-			s = WebSocketUtils.sendHandshake(in, out);
+			s = WebSocketUtils.sendHandshake(httpData, in, out);
 
 			log.info("Handsake sent to new client.");
 			log.info("User {} has joined to the server.", client.getInetAddress());
@@ -288,7 +292,7 @@ public class ThreadClient extends AbstractThread {
 		default:
 			// No hacer nada.
 			break;
-		}		
+		}
 	}
 	
 	/**
@@ -368,6 +372,15 @@ public class ThreadClient extends AbstractThread {
 				log.error("Could not close socket after server disconection: {}", e.getMessage());
 			}
 		}
+	}
+	
+	/**
+	 * Get httpData
+	 * 
+	 * @param httpData
+	 */
+	public synchronized void setHttpData(String httpData) {
+		this.httpData = httpData;
 	}
 
 }

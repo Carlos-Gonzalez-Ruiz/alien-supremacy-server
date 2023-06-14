@@ -1,0 +1,5 @@
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+   ${application.title} ${application.formatted-version} server
+   Using Spring Boot${spring-boot.formatted-version} ...
+   By Carlos González Ruiz
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

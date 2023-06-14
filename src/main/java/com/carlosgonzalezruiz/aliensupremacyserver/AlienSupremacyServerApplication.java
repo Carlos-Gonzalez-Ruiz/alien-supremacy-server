@@ -1,6 +1,8 @@
 package com.carlosgonzalezruiz.aliensupremacyserver;
 
-import com.carlosgonzalezruiz.aliensupremacyserver.game.server.ThreadServer;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * Alien Supremacy - Proyecto Fin de Ciclo
@@ -9,30 +11,30 @@ import com.carlosgonzalezruiz.aliensupremacyserver.game.server.ThreadServer;
  * 
  * @author Carlos González Ruiz - 2ºDAM
  */
-public class AlienSupremacyServerApplication {
+@SpringBootApplication
+public class AlienSupremacyServerApplication implements CommandLineRunner {
 
 	/** Logger */
-	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(AlienSupremacyServerApplication.class);
-	
+	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory
+			.getLogger(AlienSupremacyServerApplication.class);
+
 	/**
 	 * Método principal de la clase.
 	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		log.info("Application started...");
-		
-		// Iniciar servidor.
-		ThreadServer threadServer = new ThreadServer();
-		threadServer.start();
+		SpringApplication.run(AlienSupremacyServerApplication.class, args);
+	}
 
-		// Esperar a que termine el servidor.
-		try {
-			threadServer.join();
-		} catch (InterruptedException e) {
-			Thread.currentThread().interrupt();
-			log.error("Failed to join the thread: {}", e.getMessage());
-		}
+	/**
+	 * Método que se ejecuta tras finalizar la inicialización de Spring.
+	 * 
+	 * @param args
+	 */
+	@Override
+	public void run(String... args) {
+		log.info("Application started...");
 	}
 
 }
